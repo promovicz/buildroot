@@ -1,0 +1,15 @@
+[Unit]
+Description=Update microcode of Intel CPUs
+DefaultDependencies=no
+RefuseManualStop=yes
+After=local-fs.target
+Before=sysinit.target
+Conflicts=shutdown.target
+ConditionVirtualization=no
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/iucode_tool -k /usr/share/misc/intel-microcode.dat
+TimeoutSec=30s
+RemainAfterExit=yes
+

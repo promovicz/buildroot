@@ -18,4 +18,12 @@ define IUCODE_TOOL_INSTALL_INIT_SYSV
 		$(TARGET_DIR)/etc/init.d/S00iucode-tool
 endef
 
+define IUCODE_TOOL_INSTALL_INIT_SYSTEMD
+	$(INSTALL) -D -m 0644 package/iucode-tool/iucode-tool.service \
+		$(TARGET_DIR)/usr/lib/systemd/system/iucode-tool.service
+	mkdir -p $(TARGET_DIR)/etc/systemd/system/sysinit.target.wants
+	ln -fs ../../../../usr/lib/systemd/system/iucode-tool.service \
+		$(TARGET_DIR)/etc/systemd/system/sysinit.target.wants/iucode-tool.service
+endef
+
 $(eval $(autotools-package))
