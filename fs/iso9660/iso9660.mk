@@ -102,6 +102,17 @@ endef
 ifeq ($(ROOTFS_ISO9660_USE_INITRD),YES)
 ROOTFS_ISO9660_PRE_GEN_HOOKS += ROOTFS_ISO9660_COPY_KERNEL
 
+# Copy the xen hypervisor to temporary filesystem
+ifeq ($(BR2_PACKAGE_XEN_HYPERVISOR),y)
+define ROOTFS_ISO9660_COPY_XEN
+    $(INSTALL) -D -m 0644 $(BINARIES_DIR)/xen \
+        $(ROOTFS_ISO9660_TARGET_DIR)/boot/
+	$(SED) "s%__XEN_PATH__%/boot/xen%" \
+		$(ROOTFS_ISO9660_BOOTLOADER_CONFIG_PATH)
+endef
+ROOTFS_ISO9660_PRE_GEN_HOOKS += ROOTFS_ISO9660_COPY_XEN
+endif
+
 # If initramfs is used, disable loading the initrd as the rootfs is
 # already inside the kernel image. Otherwise, make sure a cpio is
 # generated and use it as the initrd.
