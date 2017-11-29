@@ -8,3 +8,12 @@ config BR2_PACKAGE_KBD
 	  Keytable files and keyboard utilities.
 
 	  http://kernel.org/pub/linux/utils/kbd/
+
+if BR2_PACKAGE_KBD
+
+config BR2_PACKAGE_KBD_FONTS
+	bool "console font support"
+	help
+	  Install console fonts and related utilities.
+
+endif
