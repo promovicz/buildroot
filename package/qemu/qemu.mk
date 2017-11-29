@@ -194,7 +194,7 @@ endif
 ifeq ($(BR2_PACKAGE_QEMU_SDL),y)
 QEMU_OPTS += --enable-sdl
 QEMU_DEPENDENCIES += sdl
-QEMU_VARS += SDL_CONFIG=$(BR2_STAGING_DIR)/usr/bin/sdl-config
+QEMU_VARS += SDL_CONFIG=$(STAGING_DIR)/usr/bin/sdl-config
 else
 QEMU_OPTS += --disable-sdl
 endif
