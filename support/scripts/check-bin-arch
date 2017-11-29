@@ -62,6 +62,12 @@ while read f; do
 		fi
 	done
 
+	# Skip files in /usr/share/xen, where binaries may
+	# legitimately be for any enabled multilib architecture
+	if [[ "${f}" =~ ^/usr/lib/xen/boot/.* ]]; then
+		continue
+	fi
+
 	# Skip symlinks. Some symlinks may have absolute paths as
 	# target, pointing to host binaries while we're building.
 	if [[ -L "${TARGET_DIR}/${f}" ]]; then
