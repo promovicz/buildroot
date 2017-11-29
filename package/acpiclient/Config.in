@@ -1,0 +1,7 @@
+config BR2_PACKAGE_ACPICLIENT
+	bool "acpiclient"
+	depends on BR2_x86_64 || BR2_i386
+	help
+	  Advanced Configuration and Power Interface client tool.
+
+	  http://sourceforge.net/projects/acpiclient/
