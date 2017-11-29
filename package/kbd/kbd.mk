@@ -12,7 +12,8 @@ KBD_CONF_OPTS = \
 	--disable-tests
 KBD_DEPENDENCIES = \
 	$(TARGET_NLS_DEPENDENCIES) \
-	host-pkgconf
+	host-pkgconf \
+	gzip
 KBD_LICENSE = GPL-2.0+
 KBD_LICENSE_FILES = COPYING
 
