@@ -17,6 +17,7 @@ KBD_DEPENDENCIES = \
 KBD_LICENSE = GPL-2.0+
 KBD_LICENSE_FILES = COPYING
 
+KBD_INSTALL_STAGING_OPTS = MKINSTALLDIRS=$(@D)/config/mkinstalldirs DESTDIR=$(STAGING_DIR) install
 KBD_INSTALL_TARGET_OPTS = MKINSTALLDIRS=$(@D)/config/mkinstalldirs DESTDIR=$(TARGET_DIR) install
 
 $(eval $(autotools-package))
