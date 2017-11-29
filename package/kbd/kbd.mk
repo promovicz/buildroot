@@ -36,4 +36,13 @@ endef
 KBD_POST_INSTALL_TARGET_HOOKS += KBD_REMOVE_FONTS
 endif
 
+# Remove obsolete components
+define KBD_REMOVE_OBSOLETE
+	rm -rf $(TARGET_DIR)/usr/share/consoletrans
+	for bin in loadunimap mapscrn; do \
+		rm -f $(TARGET_DIR)/usr/bin/$${bin} ; \
+	done
+endef
+KBD_POST_INSTALL_TARGET_HOOKS += KBD_REMOVE_OBSOLETE
+
 $(eval $(autotools-package))
