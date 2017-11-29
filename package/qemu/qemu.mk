@@ -226,6 +226,13 @@ else
 QEMU_OPTS += --disable-seccomp
 endif
 
+ifeq ($(BR2_PACKAGE_VDE2),y)
+QEMU_OPTS += --enable-vde
+QEMU_DEPENDENCIES += vde2
+else
+QEMU_OPTS += --disable-vde
+endif
+
 # Override CPP, as it expects to be able to call it like it'd
 # call the compiler.
 define QEMU_CONFIGURE_CMDS
@@ -252,7 +259,6 @@ define QEMU_CONFIGURE_CMDS
 			--disable-curses \
 			--disable-curl \
 			--disable-bluez \
-			--disable-vde \
 			--disable-linux-aio \
 			--disable-cap-ng \
 			--disable-docs \
