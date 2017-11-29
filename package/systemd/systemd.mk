@@ -31,7 +31,6 @@ SYSTEMD_CONF_OPTS += \
 	--enable-static=no \
 	--disable-manpages \
 	--disable-ima \
-	--disable-libcryptsetup \
 	--disable-efi \
 	--disable-gnuefi \
 	--disable-ldconfig \
@@ -70,6 +69,13 @@ SYSTEMD_CONF_OPTS += --enable-audit
 SYSTEMD_DEPENDENCIES += audit
 else
 SYSTEMD_CONF_OPTS += --disable-audit
+endif
+
+ifeq ($(BR2_PACKAGE_CRYPTSETUP),y)
+SYSTEMD_CONF_OPTS += --enable-libcryptsetup
+SYSTEMD_DEPENDENCIES += cryptsetup
+else
+SYSTEMD_CONF_OPTS += --disable-libcryptsetup
 endif
 
 ifeq ($(BR2_PACKAGE_LIBIDN),y)
