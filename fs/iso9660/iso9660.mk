@@ -71,11 +71,17 @@ ROOTFS_ISO9660_DEPENDENCIES += syslinux
 ROOTFS_ISO9660_BOOTLOADER_CONFIG_PATH = \
 	$(ROOTFS_ISO9660_TMP_TARGET_DIR)/isolinux/isolinux.cfg
 ROOTFS_ISO9660_BOOT_IMAGE = isolinux/isolinux.bin
+ROOTFS_ISO9600_BOOT_BINARIES += ldlinux.c32
+ifeq ($(BR2_PACKAGE_XEN_HYPERVISOR),y)
+ROOTFS_ISO9600_BOOT_BINARIES += libcom32.c32 mboot.c32
+endif
 define ROOTFS_ISO9660_INSTALL_BOOTLOADER
 	$(INSTALL) -D -m 0644 $(BINARIES_DIR)/syslinux/* \
 		$(ROOTFS_ISO9660_TMP_TARGET_DIR)/isolinux/
-	$(INSTALL) -D -m 0644 $(HOST_DIR)/share/syslinux/ldlinux.c32 \
-		$(ROOTFS_ISO9660_TMP_TARGET_DIR)/isolinux/ldlinux.c32
+    for bin in $(ROOTFS_ISO9600_BOOT_BINARIES); do \
+		$(INSTALL) -D -m 0644 $(HOST_DIR)/share/syslinux/$$bin \
+			$(ROOTFS_ISO9660_TMP_TARGET_DIR)/isolinux/ ; \
+	done
 endef
 endif
 
