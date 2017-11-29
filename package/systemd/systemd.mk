@@ -23,7 +23,6 @@ SYSTEMD_CONF_OPTS += \
 	-Dblkid=true \
 	-Dman=false \
 	-Dima=false \
-	-Dlibcryptsetup=false \
 	-Defi=false \
 	-Dgnu-efi=false \
 	-Dldconfig=false \
@@ -73,6 +72,13 @@ SYSTEMD_DEPENDENCIES += libidn
 SYSTEMD_CONF_OPTS += -Dlibidn=true -Dlibidn2=false
 else
 SYSTEMD_CONF_OPTS += -Dlibidn=false -Dlibidn2=false
+endif
+
+ifeq ($(BR2_PACKAGE_CRYPTSETUP),y)
+SYSTEMD_CONF_OPTS += -Dlibcryptsetup=true
+SYSTEMD_DEPENDENCIES += cryptsetup
+else
+SYSTEMD_CONF_OPTS += -Dlibcryptsetup=false
 endif
 
 ifeq ($(BR2_PACKAGE_LIBSECCOMP),y)
