@@ -28,6 +28,8 @@ ifeq ($(ARCH),aarch64)
 XEN_ARCH = arm64
 else ifeq ($(ARCH),arm)
 XEN_ARCH = arm32
+else
+XEN_ARCH = $(ARCH)
 endif
 
 XEN_CONF_OPTS = --disable-ocamltools
