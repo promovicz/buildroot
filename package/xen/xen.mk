@@ -55,6 +55,21 @@ define XEN_INSTALL_INIT_SYSV
 	mv $(TARGET_DIR)/etc/init.d/xen-watchdog $(TARGET_DIR)/etc/init.d/S50xen-watchdog
 	mv $(TARGET_DIR)/etc/init.d/xendomains $(TARGET_DIR)/etc/init.d/S60xendomains
 endef
+
+define XEN_INSTALL_INIT_SYSTEMD
+	# Remove SysV scripts
+	rm -f $(TARGET_DIR)/etc/init.d/xencommons
+	rm -f $(TARGET_DIR)/etc/init.d/xendomains
+	rm -f $(TARGET_DIR)/etc/init.d/xendriverdomain
+	rm -f $(TARGET_DIR)/etc/init.d/xen-watchdog
+	# Enable services
+	mkdir -p $(TARGET_DIR)/etc/systemd/system/multi-user.target.wants
+	for unit in xen-init-dom0 xen-watchdog xenstored xenconsoled xendriverdomain; do \
+		ln -sf ../../../../usr/lib/systemd/system/$${unit}.service \
+			$(TARGET_DIR)/etc/systemd/system/multi-user.target.wants/$${unit}.service ; \
+	done
+endef
+
 else
 XEN_INSTALL_TARGET = NO
 XEN_CONF_OPTS += --disable-tools
