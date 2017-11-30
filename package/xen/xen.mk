@@ -21,12 +21,53 @@ else
 XEN_ARCH = $(ARCH)
 endif
 
-XEN_CONF_OPTS = \
+# Disable -Werror everywhere
+define XEN_DISABLE_WERROR
+	( cd $(@D)/tools/firmware/etherboot ; make ipxe/src/arch/i386/Makefile )
+	grep -Rl '\-Werror' $(@D) | xargs --no-run-if-empty -n 1 sed -i 's/-Werror//g'
+endef
+XEN_POST_CONFIGURE_HOOKS += XEN_DISABLE_WERROR
+
+# Fix seabios build (bad references to ncurses)
+define XEN_FIX_SEABIOS
+	( cd $(@D)/tools/firmware ; make seabios-dir )
+	cp $(@D)/xen/tools/kconfig/lxdialog/check-lxdialog.sh \
+	   $(@D)/tools/firmware/seabios-dir-remote/scripts/kconfig/lxdialog/check-lxdialog.sh
+endef
+# Fix qemu build (wrong sdl-config, badly detects opengl)
+define XEN_FIX_QEMU
+	# Configure uses wrong sdl-config
+	( cd $(@D)/tools ; make qemu-xen-traditional-dir-find )
+	sed -i "s^\"sdl-config\"^\"$(STAGING_DIR)/usr/bin/sdl-config\"^" \
+	   $(@D)/tools/qemu-xen-traditional/configure
+	# Forcibly disable OpenGL
+	sed -i "s^-lGL^-lGLDISABLED^" \
+	   $(@D)/tools/qemu-xen-traditional/configure
+	sed -i "s^-I/usr/include/GL^-I$(STAGING_DIR)/usr/include/GL^" \
+	   $(@D)/tools/qemu-xen-traditional/configure
+endef
+# Fix python library build (uses wrong python)
+define XEN_FIX_PYTHON
+	# Makefile uses wrong python
+	sed -i "s^\$$(PYTHON)^$(HOST_DIR)/bin/python2^" \
+	   $(@D)/tools/python/Makefile
+	# Removal of -Werror leaves empty string
+    sed -i 's^, "" ^^' $(@D)/tools/python/setup.py
+	sed -i 's^, "" ^^' $(@D)/tools/pygrub/setup.py
+endef
+XEN_POST_CONFIGURE_HOOKS += \
+	XEN_FIX_SEABIOS \
+	XEN_FIX_QEMU \
+	XEN_FIX_PYTHON
+
+XEN_CONF_OPTS += \
 	--disable-ocamltools \
 	--with-initddir=/etc/init.d
 
-XEN_CONF_ENV = PYTHON=$(HOST_DIR)/bin/python2
-XEN_MAKE_ENV = \
+XEN_CONF_ENV += PYTHON=$(HOST_DIR)/bin/python2
+XEN_MAKE_ENV += PYTHON=$(HOST_DIR)/bin/python2
+
+XEN_MAKE_ENV += \
 	XEN_TARGET_ARCH=$(XEN_ARCH) \
 	CROSS_COMPILE=$(TARGET_CROSS) \
 	HOST_EXTRACFLAGS="-Wno-error" \
@@ -44,7 +85,9 @@ XEN_CONF_OPTS += --disable-xen
 endif
 
 ifeq ($(BR2_PACKAGE_XEN_TOOLS),y)
-XEN_DEPENDENCIES += dtc libaio libglib2 ncurses openssl pixman util-linux yajl
+XEN_DEPENDENCIES += dtc libaio libglib2 ncurses openssl sdl pixman util-linux vde2 xz yajl
+XEN_CONF_ENV += SDL_CONFIG=$(STAGING_DIR)/usr/bin/sdl-config
+XEN_MAKE_ENV += SDL_CONFIG=$(STAGING_DIR)/usr/bin/sdl-config
 ifeq ($(BR2_PACKAGE_ARGP_STANDALONE),y)
 XEN_DEPENDENCIES += argp-standalone
 endif
