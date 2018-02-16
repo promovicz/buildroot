@@ -489,6 +489,14 @@ else
 export BR_NO_CCACHE
 endif
 
+# Need to use a different name for the release file
+# when building an image intended as an initramfs
+ifeq ($(BR2_TARGET_ROOTFS_CPIO),y)
+RELEASE_FILE := initrd-release
+else
+RELEASE_FILE := os-release
+endif
+
 # Scripts in support/ or post-build scripts may need to reference
 # these locations, so export them so it is easier to use
 export BR2_CONFIG
@@ -778,8 +786,8 @@ endif
 		echo "ID=buildroot"; \
 		echo "VERSION_ID=$(BR2_VERSION)"; \
 		echo "PRETTY_NAME=\"Buildroot $(BR2_VERSION)\"" \
-	) >  $(TARGET_DIR)/usr/lib/os-release
-	ln -sf ../usr/lib/os-release $(TARGET_DIR)/etc
+	) >  $(TARGET_DIR)/usr/lib/$(RELEASE_FILE)
+	ln -sf ../usr/lib/$(RELEASE_FILE) $(TARGET_DIR)/etc
 
 	@$(call MESSAGE,"Sanitizing RPATH in target tree")
 	$(TOPDIR)/support/scripts/fix-rpath target
