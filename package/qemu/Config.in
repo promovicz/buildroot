@@ -90,6 +90,12 @@ if BR2_PACKAGE_QEMU_HAS_EMULS
 
 comment "Frontends"
 
+config BR2_PACKAGE_QEMU_CURSES
+	bool "Enable curses frontend"
+	select BR2_PACKAGE_NCURSES
+	help
+	  Say 'y' to enable the curses frontend.
+
 config BR2_PACKAGE_QEMU_SDL
 	bool "Enable SDL frontend"
 	select BR2_PACKAGE_SDL

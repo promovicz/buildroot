@@ -191,6 +191,13 @@ endif
 
 endif
 
+ifeq ($(BR2_PACKAGE_QEMU_CURSES),y)
+QEMU_OPTS += --enable-curses
+QEMU_DEPENDENCIES += ncurses
+else
+QEMU_OPTS += --disable-curses
+endif
+
 ifeq ($(BR2_PACKAGE_QEMU_SDL),y)
 QEMU_OPTS += --enable-sdl
 QEMU_DEPENDENCIES += sdl
@@ -275,7 +282,6 @@ define QEMU_CONFIGURE_CMDS
 			--disable-vnc \
 			--disable-virtfs \
 			--disable-brlapi \
-			--disable-curses \
 			--disable-curl \
 			--disable-bluez \
 			--disable-docs \
