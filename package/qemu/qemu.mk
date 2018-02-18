@@ -206,6 +206,12 @@ else
 QEMU_OPTS += --disable-fdt
 endif
 
+ifeq ($(BR2_PACKAGE_QEMU_GUEST_AGENT),y)
+QEMU_OPTS += --enable-guest-agent
+else
+QEMU_OPTS += --disable-guest-agent
+endif
+
 ifeq ($(BR2_PACKAGE_QEMU_TOOLS),y)
 QEMU_OPTS += --enable-tools
 else

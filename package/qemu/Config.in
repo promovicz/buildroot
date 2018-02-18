@@ -117,6 +117,13 @@ comment "FDT support needs a toolchain w/ dynamic library"
 
 endif # BR2_PACKAGE_QEMU_HAS_EMULS
 
+comment "Utilities"
+
+config BR2_PACKAGE_QEMU_GUEST_AGENT
+	bool "Enable guest agent"
+	help
+	  Say 'y' here to include the QEMU guest agent (qemu-ga).
+
 config BR2_PACKAGE_QEMU_TOOLS
 	bool "Enable tools"
 	help
