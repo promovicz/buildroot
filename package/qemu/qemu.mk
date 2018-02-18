@@ -240,6 +240,13 @@ else
 QEMU_OPTS += --disable-vde
 endif
 
+ifeq ($(BR2_PACKAGE_XEN_TOOLS),y)
+QEMU_OPTS += --enable-xen
+QEMU_DEPENDENCIES += xen
+else
+QEMU_OPTS += --disable-xen
+endif
+
 # Override CPP, as it expects to be able to call it like it'd
 # call the compiler.
 define QEMU_CONFIGURE_CMDS
@@ -258,7 +265,6 @@ define QEMU_CONFIGURE_CMDS
 			--enable-attr \
 			--enable-vhost-net \
 			--disable-bsd-user \
-			--disable-xen \
 			--disable-slirp \
 			--disable-vnc \
 			--disable-virtfs \
