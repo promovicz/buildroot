@@ -212,6 +212,13 @@ else
 QEMU_OPTS += --disable-tools
 endif
 
+ifeq ($(BR2_PACKAGE_LIBAIO),y)
+QEMU_OPTS += --enable-linux-aio
+QEMU_DEPENDENCIES += libaio
+else
+QEMU_OPTS += --disable-linux-aio
+endif
+
 ifeq ($(BR2_PACKAGE_LIBCAP_NG),y)
 QEMU_OPTS += --enable-cap-ng
 QEMU_DEPENDENCIES += libcap-ng
@@ -265,7 +272,6 @@ define QEMU_CONFIGURE_CMDS
 			--disable-curses \
 			--disable-curl \
 			--disable-bluez \
-			--disable-linux-aio \
 			--disable-docs \
 			--disable-spice \
 			--disable-rbd \
