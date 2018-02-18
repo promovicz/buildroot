@@ -1,0 +1,9 @@
+[Unit]
+Description=TCS resource manager
+After=network.target
+
+[Service]
+ExecStart=/sbin/tcsd -f
+
+[Install]
+WantedBy=basic.target
