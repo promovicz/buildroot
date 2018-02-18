@@ -5,6 +5,7 @@
 ################################################################################
 
 XEN_VERSION = 4.12.2
+XEN_INSTALL_STAGING = YES
 XEN_SITE = https://downloads.xenproject.org/release/xen/$(XEN_VERSION)
 XEN_PATCH = \
 	https://xenbits.xenproject.org/xsa/xsa312.patch
@@ -89,6 +90,7 @@ ifeq ($(BR2_PACKAGE_ARGP_STANDALONE),y)
 XEN_DEPENDENCIES += argp-standalone
 endif
 XEN_INSTALL_TARGET_OPTS += DESTDIR=$(TARGET_DIR) install-tools
+XEN_INSTALL_STAGING_OPTS += DESTDIR=$(STAGING_DIR) install-tools
 XEN_MAKE_OPTS += dist-tools
 XEN_CONF_OPTS += --disable-qemu-traditional --with-system-qemu=/usr/bin/qemu-system-x86_64
 
