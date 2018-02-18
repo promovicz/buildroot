@@ -32,4 +32,12 @@ TROUSERS_CONF_ENV += \
 	ax_cv_check_ldflags___pie=no
 endif
 
+define TROUSERS_INSTALL_INIT_SYSTEMD
+	$(INSTALL) -D -m 644 package/trousers/tcsd.service \
+		$(TARGET_DIR)/usr/lib/systemd/system/tcsd.service
+	mkdir -p $(TARGET_DIR)/etc/systemd/system/basic.target.wants
+	ln -fs ../../../../usr/lib/systemd/system/tcsd.service \
+		$(TARGET_DIR)/etc/systemd/system/basic.target.wants/tcsd.service
+endef
+
 $(eval $(autotools-package))
