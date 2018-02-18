@@ -37,9 +37,9 @@ endef
 define RNG_TOOLS_INSTALL_INIT_SYSTEMD
 	$(INSTALL) -D -m 644 package/rng-tools/rngd.service \
 		$(TARGET_DIR)/usr/lib/systemd/system/rngd.service
-	mkdir -p $(TARGET_DIR)/etc/systemd/system/multi-user.target.wants
+	mkdir -p $(TARGET_DIR)/etc/systemd/system/sysinit.target.wants
 	ln -fs ../../../../usr/lib/systemd/system/rngd.service \
-		$(TARGET_DIR)/etc/systemd/system/multi-user.target.wants/rngd.service
+		$(TARGET_DIR)/etc/systemd/system/sysinit.target.wants/rngd.service
 endef
 
 $(eval $(autotools-package))
