@@ -108,7 +108,7 @@ config BR2_PACKAGE_QEMU_SDL
 	  Say 'y' to enable the SDL frontend, that is, a graphical
 	  window presenting the VM's display.
 
-comment "Misc. features"
+comment "Features"
 
 config BR2_PACKAGE_QEMU_FDT
 	bool "Enable FDT"
