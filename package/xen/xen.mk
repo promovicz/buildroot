@@ -57,7 +57,6 @@ define XEN_FIX_PYTHON
 endef
 XEN_POST_CONFIGURE_HOOKS += \
 	XEN_FIX_SEABIOS \
-	XEN_FIX_QEMU \
 	XEN_FIX_PYTHON
 
 XEN_CONF_OPTS += \
@@ -85,15 +84,13 @@ XEN_CONF_OPTS += --disable-xen
 endif
 
 ifeq ($(BR2_PACKAGE_XEN_TOOLS),y)
-XEN_DEPENDENCIES += dtc libaio libglib2 ncurses openssl sdl pixman util-linux vde2 xz yajl
-XEN_CONF_ENV += SDL_CONFIG=$(STAGING_DIR)/usr/bin/sdl-config
-XEN_MAKE_ENV += SDL_CONFIG=$(STAGING_DIR)/usr/bin/sdl-config
+XEN_DEPENDENCIES += libaio ncurses openssl util-linux xz yajl
 ifeq ($(BR2_PACKAGE_ARGP_STANDALONE),y)
 XEN_DEPENDENCIES += argp-standalone
 endif
 XEN_INSTALL_TARGET_OPTS += DESTDIR=$(TARGET_DIR) install-tools
 XEN_MAKE_OPTS += dist-tools
-XEN_CONF_OPTS += --with-extra-qemuu-configure-args="--disable-sdl --disable-opengl"
+XEN_CONF_OPTS += --disable-qemu-traditional --with-system-qemu=/usr/bin/qemu-system-x86_64
 
 define XEN_INSTALL_INIT_SYSV
 	mv $(TARGET_DIR)/etc/init.d/xencommons $(TARGET_DIR)/etc/init.d/S50xencommons
