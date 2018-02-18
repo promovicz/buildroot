@@ -59,7 +59,7 @@ index 80e793bb7..385758c61 100644
 -# option to preserve environment (-p), followed by '--' for safety, and then
 -# the entered username.
 -ExecStart=-/sbin/agetty -o '-p -- \\u' --noclear %I $TERM
-+ExecStart=-/sbin/getty -L %I 115200 vt100
++ExecStart=-/sbin/getty -L %I 115200 linux
  Type=idle
  Restart=always
  RestartSec=0
