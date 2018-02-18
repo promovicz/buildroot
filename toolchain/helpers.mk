@@ -109,13 +109,15 @@ copy_toolchain_sysroot = \
 			continue ; \
 		fi ; \
 		if [ "$$i" = "usr" ]; then \
-			rsync -au --chmod=u=rwX,go=rX --exclude 'locale/' \
-				--include '/libexec*/' --exclude '/lib*/' \
-				$${ARCH_SYSROOT_DIR}/$$i/ $(STAGING_DIR)/$$i/ ; \
+			options="--exclude 'locale/' --include '/libexec*/' --exclude '/lib*/'" ; \
+		elif [ "$$i" = "etc" ]; then \
+			options="--exclude 'ld.so.conf' --exclude 'ld.so.conf.d/" ; \
 		else \
-			rsync -au --chmod=u=rwX,go=rX --exclude 'locale/' \
-				$${ARCH_SYSROOT_DIR}/$$i/ $(STAGING_DIR)/$$i/ ; \
+			options="--exclude 'locale/'" ; \
 		fi ; \
+		echo "Copying $$i using $${options}" ; \
+		rsync -auv --chmod=u=rwX,go=rX $${options} \
+			$${ARCH_SYSROOT_DIR}/$$i/ $(STAGING_DIR)/$$i/ ; \
 	done ; \
 	for link in $$(find $(STAGING_DIR) -type l); do \
 		target=$$(readlink $${link}) ; \
