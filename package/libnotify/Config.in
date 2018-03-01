@@ -1,0 +1,9 @@
+config BR2_PACKAGE_LIBNOTIFY
+	bool "libnotify"
+	depends on BR2_PACKAGE_XORG7
+	select BR2_PACKAGE_LIBGLIB2
+	select BR2_PACKAGE_GDK_PIXBUF
+	help
+	  Notification system library.
+
+	  https://github.com/GNOME/libnotify
