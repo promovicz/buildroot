@@ -1,0 +1,13 @@
+config BR2_PACKAGE_I3LOCK
+	bool "i3lock"
+	depends on BR2_PACKAGE_XORG7
+	select BR2_PACKAGE_CAIRO
+	select BR2_PACKAGE_LIBEV
+	select BR2_PACKAGE_LIBXCB
+	select BR2_PACKAGE_LIBXKBCOMMON
+	select BR2_PACKAGE_XCB_UTIL
+	select BR2_PACKAGE_XCB_UTIL_IMAGE
+	help
+	  Screen locker intended for the i3 window manager.
+
+	  http://i3wm.org/i3lock/
