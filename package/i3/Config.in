@@ -1,0 +1,20 @@
+config BR2_PACKAGE_I3
+	bool "i3"
+	depends on BR2_PACKAGE_XORG7
+	select BR2_PACKAGE_LIBEV
+	select BR2_PACKAGE_LIBXCB
+	select BR2_PACKAGE_LIBXKBCOMMON
+	select BR2_PACKAGE_CAIRO
+	select BR2_PACKAGE_PANGO
+	select BR2_PACKAGE_PCRE
+	select BR2_PACKAGE_STARTUP_NOTIFICATION
+	select BR2_PACKAGE_YAJL
+	select BR2_PACKAGE_XCB_UTIL
+	select BR2_PACKAGE_XCB_UTIL_CURSOR
+	select BR2_PACKAGE_XCB_UTIL_KEYSYMS
+	select BR2_PACKAGE_XCB_UTIL_WM
+	select BR2_PACKAGE_XCB_UTIL_XRM
+	help
+	  The improved tiling window manager.
+
+	  http://i3wm.org/
