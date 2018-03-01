@@ -1,0 +1,7 @@
+config BR2_PACKAGE_LIBXDG_BASEDIR
+	bool "libxdg-basedir"
+	depends on BR2_PACKAGE_XORG7
+	help
+	  An implementation of the XDG Base Directory specifications
+
+	  https://github.com/devnev/libxdg-basedir/
