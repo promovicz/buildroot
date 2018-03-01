@@ -1,0 +1,18 @@
+config BR2_PACKAGE_DUNST
+	bool "dunst"
+	depends on BR2_PACKAGE_XORG7
+	select BR2_PACKAGE_LIBGLIB2
+	select BR2_PACKAGE_DBUS
+	select BR2_PACKAGE_CAIRO
+	select BR2_PACKAGE_CAIRO_PNG
+	select BR2_PACKAGE_PANGO
+	select BR2_PACKAGE_GDK_PIXBUF
+	select BR2_PACKAGE_LIBNOTIFY
+	select BR2_PACKAGE_LIBXDG_BASEDIR
+	select BR2_PACKAGE_XLIB_LIBXINERAMA
+	select BR2_PACKAGE_XLIB_LIBXRANDR
+	select BR2_PACKAGE_XLIB_LIBXSCRNSAVER
+	help
+	  Lightweight desktop notifications.
+
+	  https://dunst-project.org/
