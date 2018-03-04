@@ -26,4 +26,9 @@ I3_DEPENDENCIES += xcb-util-keysyms
 I3_DEPENDENCIES += xcb-util-wm
 I3_DEPENDENCIES += xcb-util-xrm
 
+define I3_FIX_MAKEFILE
+	sed -i 's^\$$(TEST_LOGS) $$(TEST_LOGS:^$$(TEST_LOGS):^' $(@D)/Makefile
+endef
+I3_POST_CONFIGURE_HOOKS += I3_FIX_MAKEFILE
+
 $(eval $(autotools-package))
