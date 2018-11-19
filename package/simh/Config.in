@@ -1,0 +1,23 @@
+config BR2_PACKAGE_SIMH
+	bool "simh"
+	depends on BR2_PACKAGE_PCRE
+	help
+	  Simulator of historic computing systems.
+
+	  https://github.com/simh/simh
+
+if BR2_PACKAGE_SIMH
+
+config BR2_PACKAGE_SIMH_GRAPHICS
+	bool "Enable graphics support"
+	select BR2_PACKAGE_SDL
+	help
+	  Enable support for graphics in some simulators.
+
+config BR2_PACKAGE_SIMH_NETWORK
+	bool "Enable network support"
+	select BR2_PACKAGE_VDEPLUG
+	help
+	  Enable support for networking in some simulators.
+
+endif # BR2_PACKAGE_SIMH
