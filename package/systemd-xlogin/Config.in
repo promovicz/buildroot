@@ -1,0 +1,10 @@
+config BR2_PACKAGE_SYSTEMD_XLOGIN
+	bool "systemd-xlogin"
+	depends on BR2_INIT_SYSTEMD
+	depends on BR2_PACKAGE_BASH
+	depends on BR2_PACKAGE_XORG7
+	help
+	  Makes it possible to login to X without a desktop manager.
+
+	  https://github.com/joukewitteveen/xlogin
+
