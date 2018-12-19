@@ -8,6 +8,20 @@ config BR2_PACKAGE_SIMH
 
 if BR2_PACKAGE_SIMH
 
+config BR2_PACKAGE_SIMH_SELECTED
+	bool "Select specific simulators"
+	help
+	  Select simulators to be built.
+
+if BR2_PACKAGE_SIMH_SELECTED
+config BR2_PACKAGE_SIMH_SIMULATORS
+	string "Simulators to build and install"
+	help
+	  List of simulators to install.
+
+	  Use uppercase names (VAX650, PDP11...).
+endif # BR2_PACKAGE_SIMH_SELECTED
+
 config BR2_PACKAGE_SIMH_GRAPHICS
 	bool "Enable graphics support"
 	select BR2_PACKAGE_SDL
@@ -21,3 +35,4 @@ config BR2_PACKAGE_SIMH_NETWORK
 	  Enable support for networking in some simulators.
 
 endif # BR2_PACKAGE_SIMH
+
