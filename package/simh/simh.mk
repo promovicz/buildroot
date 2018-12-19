@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-SIMH_VERSION = 014ad9607e341791f1f4eb1e04f183fe739888da
+SIMH_VERSION = 20583f1526cc4128d0cad53fb68ce5d8aa72d04f
 SIMH_SOURCE = simh-$(SIMH_VERSION).tar.gz
 SIMH_SITE = $(call github,promovicz,simh,$(SIMH_VERSION))
 SIMH_LICENSE = MIT
@@ -12,6 +12,13 @@ SIMH_LICENSE = MIT
 SIMH_DEPENDENCIES += pcre
 
 SIMH_CONF_OPTS += -DEXECUTABLE_PREFIX=simh-
+
+ifeq ($(BR2_PACKAGE_SIMH_SELECTED),y)
+SIMH_CONF_OPTS += -DBUILD_ALL=NO
+SIMH_CONF_OPTS += $(foreach sim,$(BR2_PACKAGE_SIMH_SIMULATORS),-DSIMULATOR_$(sim)_ENABLE=YES)
+else
+SIMH_CONF_OPTS += -DBUILD_ALL=YES
+endif
 
 ifeq ($(BR2_PACKAGE_SIMH_GRAPHICS),y)
 SIMH_CONF_OPTS += -DENABLE_GRAPHICS=YES
