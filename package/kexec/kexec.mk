@@ -20,7 +20,7 @@ else
 KEXEC_CONF_OPTS += --without-zlib
 endif
 
-ifeq ($(BR2_PACKAGE_XZ),y)
+ifeq ($(BR2_PACKAGE_KEXEC_XZ),y)
 KEXEC_CONF_OPTS += --with-lzma
 KEXEC_DEPENDENCIES += xz
 else

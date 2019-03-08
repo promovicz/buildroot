@@ -13,10 +13,16 @@ config BR2_PACKAGE_KEXEC
 
 if BR2_PACKAGE_KEXEC
 
+config BR2_PACKAGE_KEXEC_XZ
+	bool "xz support"
+	select BR2_PACKAGE_XZ
+	help
+	  Support for xz-compressed images
+
 config BR2_PACKAGE_KEXEC_ZLIB
 	bool "zlib support"
 	select BR2_PACKAGE_ZLIB
 	help
-	  Support for compressed kernel images
+	  Support for gz-compressed images
 
 endif
