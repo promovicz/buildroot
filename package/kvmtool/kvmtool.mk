@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-KVMTOOL_VERSION = f77d646ba01d04be5aad9449ac00719c043fe36e
+KVMTOOL_VERSION = c57e001a3efba729a2d0c424bb7bb570c852f851
 KVMTOOL_SITE = $(BR2_KERNEL_MIRROR)/scm/linux/kernel/git/will/kvmtool.git
 KVMTOOL_SITE_METHOD = git
 KVMTOOL_DEPENDENCIES = \
