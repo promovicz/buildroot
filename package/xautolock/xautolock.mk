@@ -20,7 +20,7 @@ XAUTOLOCK_DEPENDENCIES += xlib_libXScrnSaver
 XAUTOLOCK_MAKE_OPTS += DEFINES="-DSYSV"
 
 define XAUTOLOCK_BUILD_CMDS
-	($(TARGET_MAKE_ENV) cd $(@D) && xmkmf)
+	( cd $(@D) && $(TARGET_MAKE_ENV) xmkmf )
 	$(TARGET_MAKE_ENV) $(MAKE) $(XAUTOLOCK_MAKE_OPTS) -C $(@D)
 endef
 
