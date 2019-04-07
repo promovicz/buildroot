@@ -1,0 +1,9 @@
+config BR2_PACKAGE_FS_UAE
+	bool "fs-uae"
+	select BR2_PACKAGE_SDL2
+	select BR2_PACKAGE_LIBGLEW
+	help
+	  Ubiquitous Amiga Emulator
+
+	  https://github.com/FrodeSolheim/fs-uae
+
