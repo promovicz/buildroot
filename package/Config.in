@@ -165,6 +165,7 @@ menu "Development tools"
 	source "package/pkgconf/Config.in"
 	source "package/sed/Config.in"
 	source "package/subversion/Config.in"
+	source "package/tcc/Config.in"
 	source "package/tree/Config.in"
 	source "package/yasm/Config.in"
 endmenu
