@@ -10,8 +10,8 @@ XUTIL_IMAKE_SITE = http://xorg.freedesktop.org/releases/individual/util
 XUTIL_IMAKE_LICENSE = MIT
 XUTIL_IMAKE_LICENSE_FILES = COPYING
 
-XUTIL_IMAKE_DEPENDENCIES = xproto_xproto
-HOST_XUTIL_IMAKE_DEPENDENCIES = host-xproto_xproto
+XUTIL_IMAKE_DEPENDENCIES = xorgproto
+HOST_XUTIL_IMAKE_DEPENDENCIES = host-xorgproto
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))
